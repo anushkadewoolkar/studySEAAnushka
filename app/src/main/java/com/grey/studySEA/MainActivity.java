@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private String list;
     private TextView viewDate;
     private DatePickerDialog.OnDateSetListener dateListener;
+    private Button study;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,15 @@ public class MainActivity extends AppCompatActivity {
         studySEAHelper = new DataBase(this);
         assignmentList = (ListView)findViewById(R.id.assignmentsList);
         viewDate = (TextView) findViewById(R.id.assignmentDate);
+        study = (Button) findViewById(R.id.study);
+
+        study.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, StudySubjectActivity.class);
+                startActivity(intent);
+            }
+        });
 
         studySEAPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         list = studySEAPreferences.getString("listName","");
