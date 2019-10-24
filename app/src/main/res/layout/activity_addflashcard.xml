@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".addflashcard"
+    android:background="@drawable/sea">
+
+    <ImageView
+        android:id="@+id/cancel"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/cancel" />
+    <ImageView
+        android:id="@+id/check"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/check" />
+
+    <EditText
+        android:id="@+id/question"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:hint="Enter question here"
+        android:inputType="textPersonName"
+        android:background="@color/aqua"/>
+
+    <EditText
+        android:id="@+id/answer1"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/question"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:hint="Enter answer here"
+        android:inputType="textPersonName"
+        android:background="@color/lime"/>
+
+</RelativeLayout>

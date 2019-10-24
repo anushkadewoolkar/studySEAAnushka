@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         study.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, StudySubjectActivity.class);
+                Intent intent = new Intent(MainActivity.this, FlashcardActivity.class);
                 startActivity(intent);
             }
         });

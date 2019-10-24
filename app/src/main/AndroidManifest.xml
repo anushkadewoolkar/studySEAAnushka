@@ -18,7 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StudySubjectActivity" />
+        <activity android:name=".FlashcardActivity" />
+        <activity android:name=".addflashcard"/>
+
     </application>
 
 </manifest>
