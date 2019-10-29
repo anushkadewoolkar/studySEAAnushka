@@ -22,7 +22,7 @@ public class FlashcardActivity extends AppCompatActivity {
         Random rand = new Random();
         return rand.nextInt((maxNumber - minNumber) + 1) + minNumber;
     }
-
+// hi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
