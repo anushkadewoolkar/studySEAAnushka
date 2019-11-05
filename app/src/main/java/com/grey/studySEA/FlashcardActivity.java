@@ -40,7 +40,7 @@ public class FlashcardActivity extends AppCompatActivity {
         findViewById(R.id.flashcard_answer1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setBackground(getResources().getDrawable(R.drawable.card_backgroundy));
+                v.setBackground(getResources().getDrawable(R.drawable.background));
 
             }
         });
@@ -118,13 +118,11 @@ public class FlashcardActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) { // this 100 needs to match the 100 we used when we called startActivityForResult!
+        if (requestCode == 100) {
             try {
 
-                String question = data.getExtras().getString("question"); // 'string1' needs to match the key we used when we put the string in the Intent
+                String question = data.getExtras().getString("question");
                 String answer1 = data.getExtras().getString("answer1");
-                String answer2 = data.getExtras().getString("answer2");
-                String answer3 = data.getExtras().getString("answer3");
 
                 if (data.getExtras().getString("edit") != null) {
                     flashcardDatabase.deleteCard(((TextView) findViewById(R.id.flashcard_question)).getText().toString());
@@ -136,7 +134,7 @@ public class FlashcardActivity extends AppCompatActivity {
                 flashcardDatabase.insertCard(new Flashcard(question, answer1));
                 allFlashcards = flashcardDatabase.getAllCards();
                 Snackbar.make(findViewById(R.id.RelativeLayout), "Created card successfully", Snackbar.LENGTH_LONG)
-                        .show(); // Don’t forget to show!
+                        .show();
             } catch (Exception e) {
 
             }

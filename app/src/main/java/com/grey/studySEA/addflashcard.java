@@ -37,7 +37,7 @@ public class addflashcard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (((EditText) findViewById(R.id.question)).getText().toString().equals("") ||
-                    ((EditText) findViewById(R.id.answer1)).getText().toString().equals("")){
+                        ((EditText) findViewById(R.id.answer1)).getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(), "Please fill all fields", Toast.LENGTH_LONG).show();
                 }else {
                     Intent data = new Intent();

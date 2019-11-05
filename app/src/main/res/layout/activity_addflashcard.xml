@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".addflashcard"
-    android:background="@drawable/sea">
+    android:background="@drawable/background">
 
     <ImageView
         android:id="@+id/cancel"
-        android:layout_width="60dp"
+        android:layout_width="62dp"
         android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="22dp"
         android:src="@drawable/cancel" />
     <ImageView
         android:id="@+id/check"
@@ -28,23 +28,23 @@
 
     <EditText
         android:id="@+id/question"
-        android:layout_width="325dp"
-        android:layout_height="wrap_content"
+        android:layout_width="290dp"
+        android:layout_height="27dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
+        android:background="@drawable/background"
         android:hint="Enter question here"
-        android:inputType="textPersonName"
-        android:background="@color/aqua"/>
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/answer1"
-        android:layout_width="325dp"
-        android:layout_height="wrap_content"
+        android:layout_width="291dp"
+        android:layout_height="30dp"
         android:layout_below="@id/question"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
+        android:background="@drawable/background"
         android:hint="Enter answer here"
-        android:inputType="textPersonName"
-        android:background="@color/lime"/>
+        android:inputType="textPersonName" />
 
 </RelativeLayout>
