@@ -15,36 +15,39 @@ import java.util.Random;
 
 public class FlashcardActivity extends AppCompatActivity {
 
-    FlashcardDatabase flashcardDatabase;
-    List<Flashcard> allFlashcards;
+    studySEAHelper studySEAHelper;
+    List<Flashcard> totalFlashcards;
 
     public int getRandomNumber(int minNumber, int maxNumber) {
         Random rand = new Random();
         return rand.nextInt((maxNumber - minNumber) + 1) + minNumber;
     }
-// hi
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flashcard);
 
-        flashcardDatabase = new FlashcardDatabase(getApplicationContext());
-        allFlashcards = flashcardDatabase.getAllCards();
+        studySEAHelper = new studySEAHelper(getApplicationContext());
+        totalFlashcards = studySEAHelper.getTotalCards();
 
-        if (allFlashcards != null && allFlashcards.size() > 0) {
-            int rand = getRandomNumber(0,allFlashcards.size()-1);
-            ((TextView) findViewById(R.id.flashcard_question)).setText(allFlashcards.get(rand).getQuestion());
-            ((TextView) findViewById(R.id.flashcard_answer1)).setText(allFlashcards.get(rand).getAnswer());
+        //displays random card
+        if (totalFlashcards != null && totalFlashcards.size() > 0) {
+            int rand = getRandomNumber(0,totalFlashcards.size()-1);
+            ((TextView) findViewById(R.id.flashcard_question)).setText(totalFlashcards.get(rand).getQuestion());
+            ((TextView) findViewById(R.id.flashcard_answer1)).setText(totalFlashcards.get(rand).getAnswer());
         }
 
         findViewById(R.id.flashcard_answer1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setBackground(getResources().getDrawable(R.drawable.background));
+                v.setBackground(getResources().getDrawable(R.color.white));
 
             }
         });
 
+        //If user clicks eye image, will show answer
+        //How to use visibility: https://developer.android.com/reference/android/view/View
         findViewById(R.id.visibilityoff).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,13 +73,14 @@ public class FlashcardActivity extends AppCompatActivity {
             }
         });
 
+        //Allows users to change flashcard (both question and answer) after they add it
         findViewById(R.id.edit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FlashcardActivity.this, addflashcard.class);
                 intent.putExtra("question",((TextView) findViewById(R.id.flashcard_question)).getText().toString());
                 intent.putExtra("answer1",((TextView) findViewById(R.id.flashcard_answer1)).getText().toString());
-                intent.putExtra("edit","yeet");
+                intent.putExtra("edit","StudySEA");
                 FlashcardActivity.this.startActivityForResult(intent,100);
             }
         });
@@ -85,25 +89,27 @@ public class FlashcardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (allFlashcards.size() == 0){
+                //First flashcard
+                if (totalFlashcards.size() == 0){
                     ((TextView) findViewById(R.id.flashcard_question)).setText("Add a card to get started!");
                     ((TextView) findViewById(R.id.flashcard_answer1)).setText("");
                 }else {
-                    // set the question and answer TextViews with data from the database
-                    int rand = getRandomNumber(0, allFlashcards.size() - 1);
-                    ((TextView) findViewById(R.id.flashcard_question)).setText(allFlashcards.get(rand).getQuestion());
-                    ((TextView) findViewById(R.id.flashcard_answer1)).setText(allFlashcards.get(rand).getAnswer());
+                    //sets the question and answer with data from database
+                    int rand = getRandomNumber(0, totalFlashcards.size() - 1);
+                    ((TextView) findViewById(R.id.flashcard_question)).setText(totalFlashcards.get(rand).getQuestion());
+                    ((TextView) findViewById(R.id.flashcard_answer1)).setText(totalFlashcards.get(rand).getAnswer());
                     }
             }
         });
 
+        //wont delete initial card
         findViewById(R.id.deleteBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flashcardDatabase.deleteCard(((TextView) findViewById(R.id.flashcard_question)).getText().toString());
-                allFlashcards = flashcardDatabase.getAllCards();
+                studySEAHelper.deleteCard(((TextView) findViewById(R.id.flashcard_question)).getText().toString());
+                totalFlashcards = studySEAHelper.getTotalCards();
 
-                if (allFlashcards.size() == 0) {
+                if (totalFlashcards.size() == 0) {
                     ((TextView) findViewById(R.id.flashcard_question)).setText("Add a card to get started!");
                     ((TextView) findViewById(R.id.flashcard_answer1)).setText("");
                 }else{
@@ -115,6 +121,7 @@ public class FlashcardActivity extends AppCompatActivity {
 
     }
 
+    //TRY-CATCH FOR IF USER MAKES MORE THAN 100 FLASHCARDS
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -125,16 +132,15 @@ public class FlashcardActivity extends AppCompatActivity {
                 String answer1 = data.getExtras().getString("answer1");
 
                 if (data.getExtras().getString("edit") != null) {
-                    flashcardDatabase.deleteCard(((TextView) findViewById(R.id.flashcard_question)).getText().toString());
+                    studySEAHelper.deleteCard(((TextView) findViewById(R.id.flashcard_question)).getText().toString());
                 }
 
                 ((TextView) findViewById(R.id.flashcard_question)).setText(question);
                 ((TextView) findViewById(R.id.flashcard_answer1)).setText(answer1);
 
-                flashcardDatabase.insertCard(new Flashcard(question, answer1));
-                allFlashcards = flashcardDatabase.getAllCards();
-                Snackbar.make(findViewById(R.id.RelativeLayout), "Created card successfully", Snackbar.LENGTH_LONG)
-                        .show();
+                studySEAHelper.insertCard(new Flashcard(question, answer1));
+                totalFlashcards = studySEAHelper.getTotalCards();
+                Snackbar.make(findViewById(R.id.RelativeLayout), "Card created successfully", Snackbar.LENGTH_LONG).show();
             } catch (Exception e) {
 
             }

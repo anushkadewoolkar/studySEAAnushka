@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-//
+//How to use setOnClickListener: https://stackoverflow.com/questions/25803727/android-setonclicklistener-method-how-does-it-work
 
 public class addflashcard extends AppCompatActivity {
 
